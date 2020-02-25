@@ -142,6 +142,8 @@ retry:
 		$code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		if (false === $ret || 200 !== $code) {
 			$err = curl_error($ch);
+			$info = curl_getinfo($ch);
+			$err += $info;
 			curl_close($ch);
 			if ($dest_fn) {
 				fclose($fd);
