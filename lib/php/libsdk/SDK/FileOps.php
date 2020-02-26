@@ -3,8 +3,6 @@ namespace SDK;
 
 include __DIR__ . "/../../autoload.php";
 
-use Curl\Curl;
-
 trait FileOps
 {
 	protected function md(string $name = "", bool $tmp = false) : string
@@ -120,7 +118,7 @@ trait FileOps
 	{/*{{{*/
 		$fd = NULL;
 		$retry = 0;
-		$curl = new Curl();
+		$curl = new Curl\Curl();
 
 		$curl->setOpt(CURLOPT_HEADER, false);
 		$curl->setOpt(CURLOPT_FOLLOWLOCATION, true);
