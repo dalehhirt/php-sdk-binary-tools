@@ -4,7 +4,7 @@ spl_autoload_register(function($name) {
 	$fl = __DIR__ . DIRECTORY_SEPARATOR . "libsdk" . DIRECTORY_SEPARATOR . $name . ".php";
 
 	if (file_exists($fl)) {
-		echo "Auto-loading $fl"
+		echo "Auto-loading $fl";
 		require_once $fl;
 	}
 });
@@ -13,7 +13,7 @@ spl_autoload_register(function($name) {
 	$fl = getenv("PHP_SDK_ROOT_PATH") . DIRECTORY_SEPARATOR . "pgo" . DIRECTORY_SEPARATOR . "cases" . DIRECTORY_SEPARATOR . $name . ".php";
 
 	if (file_exists($fl)) {
-		echo "Auto-loading $fl"
+		echo "Auto-loading $fl";
 		require_once $fl;
 	}
 });
@@ -22,7 +22,7 @@ spl_autoload_register(function($name) {
 	$fl = getenv("PHP_SDK_ROOT_PATH") . DIRECTORY_SEPARATOR . "php-curl-class" . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATOR . 'Curl'  . DIRECTORY_SEPARATOR . $name . ".php";
 
 	if (file_exists($fl)) {
-		echo "Auto-loading $fl"
+		echo "Auto-loading $fl";
 		require_once $fl;
 	}
 });
