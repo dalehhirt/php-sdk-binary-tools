@@ -22,7 +22,7 @@ trait FileOps
 
 
 		if (!is_dir($ret)) {
-			echo "Creating Directory $ret\n"
+			echo "Creating Directory $ret\n";
 			if (!mkdir($ret, 0755, true)) {
 				throw new Exception("Unable to create '$ret'");
 			}
@@ -40,7 +40,7 @@ trait FileOps
 			return unlink($path);
 		}
 
-		echo "Deleting Directory $path\n"
+		echo "Deleting Directory $path\n";
 
 		$ret = true;
 
@@ -121,7 +121,7 @@ trait FileOps
 
 	protected function download(string $url, string $dest_fn = NULL) : ?string
 	{/*{{{*/
-		echo "Downloading $url\n"
+		echo "Downloading $url\n";
 		$fd = NULL;
 		$retry = 0;
 		$curl = new Curl();
@@ -139,7 +139,7 @@ trait FileOps
 retry:
 
 		if ($dest_fn) {
-			echo "    Saving to $dest_fn\n"
+			echo "    Saving to $dest_fn\n";
 
 			$fd = fopen($dest_fn, "w+");
 			$curl->setFile($fd); 
@@ -170,7 +170,7 @@ retry:
 	/* TODO More detailed zip errors. */
 	protected function unzip(string $zip_fn, string $dest_fn, string $dest_dn = NULL) : void
 	{/*{{{*/
-		echo "Unzipping $zip_fn\n"
+		echo "Unzipping $zip_fn\n";
 		$zip = new \ZipArchive;
 
 		$res = $zip->open($zip_fn);
