@@ -16,6 +16,14 @@ spl_autoload_register(function($name) {
 	}
 });
 
+spl_autoload_register(function($name) {
+	$fl = getenv("PHP_SDK_ROOT_PATH") . DIRECTORY_SEPARATOR . "php-curl-class" . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATOR . 'Curl'  . DIRECTORY_SEPARATOR . $name . ".php";
+
+	if (file_exists($fl)) {
+		require_once $fl;
+	}
+});
+
 /*
  * Local variables:
  * tab-width: 4

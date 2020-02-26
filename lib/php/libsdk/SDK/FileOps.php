@@ -2,8 +2,6 @@
 
 namespace SDK;
 
-include __DIR__ . "/../../../../php-curl-class/src/Curl/Curl.php";
-
 use \Curl\Curl;
 
 trait FileOps
