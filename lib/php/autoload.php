@@ -3,7 +3,7 @@
 spl_autoload_register(function($name) {
 	$fl = __DIR__ . DIRECTORY_SEPARATOR . "libsdk" . DIRECTORY_SEPARATOR . $name . ".php";
 
-	echo "Checking autoload: $fl\n"
+	echo "Checking autoload: $fl\n";
 
 	if (file_exists($fl)) {
 		echo "Auto-loading $fl\n";
@@ -14,7 +14,7 @@ spl_autoload_register(function($name) {
 spl_autoload_register(function($name) {
 	$fl = getenv("PHP_SDK_ROOT_PATH") . DIRECTORY_SEPARATOR . "pgo" . DIRECTORY_SEPARATOR . "cases" . DIRECTORY_SEPARATOR . $name . ".php";
 
-	echo "Checking autoload: $fl\n"
+	echo "Checking autoload: $fl\n";
 
 	if (file_exists($fl)) {
 		echo "Auto-loading $fl\n";
@@ -25,7 +25,7 @@ spl_autoload_register(function($name) {
 spl_autoload_register(function($name) {
 	$fl = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "php-curl" . DIRECTORY_SEPARATOR . "src"  . DIRECTORY_SEPARATOR . $name . ".php";
 
-	echo "Checking autoload: $fl\n"
+	echo "Checking autoload: $fl\n";
 
 	if (file_exists($fl)) {
 		echo "Auto-loading $fl\n";
