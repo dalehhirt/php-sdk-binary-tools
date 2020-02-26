@@ -19,7 +19,7 @@ spl_autoload_register(function($name) {
 });
 
 spl_autoload_register(function($name) {
-	$fl = getenv("PHP_SDK_ROOT_PATH") . DIRECTORY_SEPARATOR . "php-curl-class" . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATOR . 'Curl'  . DIRECTORY_SEPARATOR . $name . ".php";
+	$fl = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "php-curl" . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATOR . 'Curl'  . DIRECTORY_SEPARATOR . $name . ".php";
 
 	if (file_exists($fl)) {
 		echo "Auto-loading $fl\n";
