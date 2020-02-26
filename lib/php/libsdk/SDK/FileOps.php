@@ -1,8 +1,7 @@
 <?php
 
+use Curl\Curl;
 namespace SDK;
-
-use \Curl\Curl;
 
 trait FileOps
 {
@@ -117,6 +116,7 @@ trait FileOps
 
 	protected function download(string $url, string $dest_fn = NULL) : ?string
 	{/*{{{*/
+		use Curl;
 		$fd = NULL;
 		$retry = 0;
 		$curl = new Curl();
