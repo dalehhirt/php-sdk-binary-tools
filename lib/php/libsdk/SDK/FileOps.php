@@ -1,5 +1,9 @@
 <?php
 
+include __DIR__ . "/../../../../php-curl-class/src/Curl/Curl.php";
+
+use \Curl\Curl;
+
 namespace SDK;
 
 trait FileOps
@@ -117,54 +121,45 @@ trait FileOps
 	{/*{{{*/
 		$fd = NULL;
 		$retry = 0;
+		$curl = new Curl();
+
+		$curl->setOpt(CURLOPT_HEADER, false);
+		$curl->setOpt(CURLOPT_FOLLOWLOCATION, true);
+		$curl->setOpt(CURLOPT_SSL_VERIFYHOST, false);
+		$curl->setOpt(CURLOPT_SSL_VERIFYPEER, false);
+		$curl->setUserAgent(Config::getSdkUserAgentName());
+		$curl->setConnectTimeout(10);
+
+		// workaround for <https://github.com/microsoft/php-sdk-binary-tools/issues/69>
+		$curl->setOpt(CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
 
 retry:
-		$ch = curl_init();
-
-		curl_setopt($ch, CURLOPT_URL, $url);
 
 		if ($dest_fn) {
 			$fd = fopen($dest_fn, "w+");
-			curl_setopt($ch, CURLOPT_FILE, $fd); 
+			$curl->setFile($fd); 
 		} else {
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$curl->setOpt(CURLOPT_RETURNTRANSFER, true);
 		}
 
-		curl_setopt($ch, CURLOPT_HEADER, false);
-		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($ch, CURLOPT_USERAGENT, Config::getSdkUserAgentName());
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+		$curl->get($url);
 
-		// workaround for <https://github.com/microsoft/php-sdk-binary-tools/issues/69>
-		curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
-
-		$ret = curl_exec($ch);
-
-		$code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-		if (false === $ret || 200 !== $code) {
-			$err = curl_error($ch);
-			$info = curl_getinfo($ch);
-			$err += $info;
-			curl_close($ch);
+		if ($curl->error) {
 			if ($dest_fn) {
 				fclose($fd);
 			}
 			if ($retry++ < 3) {
 				goto retry;
 			}
-			throw new Exception($err);
+			throw new Exception('Error ' . $curl->errorCode . ': ' . $curl->errorMessage);
 		}
-
-		curl_close($ch);
 
 		if ($dest_fn) {
 			fclose($fd);
 			return NULL;
 		}
 
-		return $ret;
+		return $curl->response;
 	}/*}}}*/
 
 	/* TODO More detailed zip errors. */
