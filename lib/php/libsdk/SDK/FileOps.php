@@ -1,7 +1,9 @@
 <?php
+namespace SDK;
+
+include __DIR__ . "/../../autoload.php";
 
 use \Curl\Curl;
-namespace SDK;
 
 trait FileOps
 {
